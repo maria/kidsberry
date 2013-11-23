@@ -21,6 +21,7 @@ class CameraVideo(object):
             # write the frame
             video_stream.writeFrame(image)
 
+
     def stop_live_preview(self):
         self.live_preview = False
         # construct the encoding arguments
