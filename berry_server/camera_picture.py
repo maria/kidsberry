@@ -7,7 +7,6 @@ class CameraPicture(object):
         self.my_camera = Camera(prop_set={'width':320, 'height': 240})
         self.timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
 
-
     def take_picture(self):
         frame = self.my_camera.getImage()
         file_name = "cameraOut" + self.timestamp + ".jpg"
