@@ -8,7 +8,7 @@ class CameraVideo(object):
 
     def __init__(self):
         self.my_camera = Camera(prop_set={'width': 320, 'height': 240})
-        self.live_preview = 0
+        self.live_preview = False
         self.timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
 
     def start_live_preview(self):
