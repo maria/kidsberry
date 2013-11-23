@@ -2,16 +2,23 @@ from __future__ import absolute_import
 
 from celery import Celery
 
-DATABASE_URI = 'sqlite:////tmp/kidsberry.db'
 
 class CeleryConfig(object):
-    BROKER_URL =  'sqla+' + DATABASE_URI
+    BROKER_URL =  'sqla+sqlite:////tmp/kidsberry.db'
     CELERY_CACHE_BACKEND = "cache://memory"
 
 
-app = Celery('kidsberry', broker='amqp://', backend='sqlalchemy')
+app = Celery('kidsberry')
 app.config_from_object(CeleryConfig)
 
-@app.task
-def schedule_pictures():
-    return 'hello world'
+CELERY_IMPORTS = ('kidsberry')
+
+CELERYBEAT_SCHEDULE = {
+    'get_scheduling_pictures_task': {
+        'task': 'kidsberry.get_scheduling_pictures_task',
+        'schedule': 300,
+    }
+}
+
+if __name__ == '__main__':
+    app.start()

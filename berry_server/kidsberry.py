@@ -1,4 +1,5 @@
 import json
+import datetime
 
 from flask import Flask, request, session, redirect, url_for
 
@@ -6,7 +7,7 @@ from camera_picture import CameraPicture
 from camera_video import CameraVideo
 from database import db_session
 from dropbox_client import DropboxClient
-from models import User
+from models import User, ScheduledImages
 from settings_local import FLASK_SECRET_KEY
 
 DEFAULT_VIDEO_DURATION = 120
@@ -154,6 +155,46 @@ def live_preview():
     elif request.method == 'DELETE' and session.get('video'):
         video = session['video']
         video.end_live_preview()
+
+
+@app.route('/schedule_pictures', methods=['POST'])
+def schedule_pictures():
+    """
+    """
+    request_data = json.loads(request.data)
+    user = User.query.filter(User.username == session['username'])
+    user.scheduled_images_timedelta = request_data['timedelta']
+
+    db_session.add(user)
+
+
+def get_scheduling_pictures_task():
+    users_ids = User.query.all()
+    for user_id in users_ids:
+        if should_take_pictures(user_id):
+            schedule_pictures_task(user_id)
+
+
+def should_take_pictures(user_id):
+    user_timedelta = User.query.filter(User.id == user_id).scheduled_images_timedelta
+    timedelta = datetime.datetime.now() - datetime.timedelta(hours=user_timedelta)
+    taken_pictures = ScheduledImages.query.filter(
+        ScheduledImages.user_id == user_id,
+        ScheduledImages.timestamp > timedelta)
+    return True if taken_pictures.count() == 0 else False
+
+
+def schedule_pictures_task(user_id):
+    camera = CameraPicture()
+    picture = camera.take_picture()
+
+    client = get_dropbox_session()
+    image_url = client.upload(picture)
+
+    timestamp = datetime.datetime.now()
+    image = ScheduledImages.new(image_url=image_url, timestamp=timestamp,
+                                user_id=user_id)
+    db_session.add(image)
 
 
 @app.teardown_appcontext
