@@ -1,6 +1,7 @@
 from flask import Flask, request, session, redirect, url_for
 import json
 
+from camera_picture import CameraPicture
 from database import db_session
 from models import User
 from settings_local import FLASK_SECRET_KEY
@@ -82,7 +83,9 @@ def take_picture():
     """Connect to the RasberryPi and take a picture using the wrapper class.
     Upload the file to Dropbox and send the URL to the client.
     """
-    filename = ''
+    camera = CameraPicture()
+    filename = camera.take_picture()
+
     client = get_dropbox_session()
     file_url = client.upload(filename)
 
