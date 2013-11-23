@@ -1,6 +1,5 @@
 from datetime import datetime
-from time import sleep
-
+from subprocess import call
 from SimpleCV import Camera, VideoStream, Color, Display
 
 
@@ -8,7 +7,7 @@ class CameraVideo(object):
 
     def __init__(self):
         self.my_camera = Camera(prop_set={'width': 320, 'height': 240})
-        self.live_preview = 0
+        self.live_preview = False
         self.timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
 
     def start_live_preview(self):
@@ -17,7 +16,7 @@ class CameraVideo(object):
             self.started_live_preview = True
             video_stream = VideoStream(self.file_name)
 
-        while self.live_previw is True:
+        while self.live_preview is True:
             image = my_camera.getImage()
             image = image.edges()
             video_stream.writeFrame(image)
@@ -33,4 +32,4 @@ class CameraVideo(object):
         return outname
 
     def take_video(self, duration):
-        pass
+       pass
