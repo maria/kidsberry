@@ -78,7 +78,7 @@ def get_user_dropbox_access_token():
     return user.dropbox_access_token
 
 
-@app('/take_picture')
+@app.route('/take_picture')
 def take_picture():
     """Connect to the RasberryPi and take a picture using the wrapper class.
     Upload the file to Dropbox and send the URL to the client.
@@ -91,6 +91,7 @@ def take_picture():
 
     response = {'response': 'OK', 'data': file_url}
     return json.dumps(response)
+
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):
