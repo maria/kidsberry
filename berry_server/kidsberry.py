@@ -1,6 +1,6 @@
 import json
 
-from flask import Flask, request, session, redirect, url_for, g
+from flask import Flask, request, session, redirect, url_for
 
 from camera_picture import CameraPicture
 from camera_video import CameraVideo
@@ -124,11 +124,11 @@ def live_preview():
     """
     if request.method == 'POST':
         video = CameraVideo()
-        setattr(g, 'video', video)
+        session['video'] = video
         video.start_live_preview()
 
-    elif request.method == 'DELETE' and hasattr(g, 'video'):
-        video = g['video']
+    elif request.method == 'DELETE' and session.get('video'):
+        video = session['video']
         video.end_live_preview()
 
 
