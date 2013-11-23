@@ -1,14 +1,16 @@
-from SimpleCV import Camera, VideoStream, Color, Display
-from time import sleep
 from datetime import datetime
+from time import sleep
+
+from SimpleCV import Camera, VideoStream, Color, Display
+
 
 class CameraVideo(object):
+
     def __init__(self):
         self.my_camera = Camera(prop_set={'width': 320, 'height': 240})
         self.outname = 'output.mp4'
         self.live_preview = 0
         self.timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-
 
     def start_live_preview(self):
         if (self.live_preview == False):

@@ -1,7 +1,9 @@
-from flask import Flask, request, session, redirect, url_for
 import json
 
+from flask import Flask, request, session, redirect, url_for
+
 from camera_picture import CameraPicture
+from camera_video import CameraVideo
 from database import db_session
 from models import User
 from settings_local import FLASK_SECRET_KEY
@@ -33,7 +35,7 @@ def login():
     else:
         session['username'] = request_credentials['username']
         response = {'response': 'Successfully logged in!',
-                    'username': session['username']}
+                    'data': {'username': session['username']}}
 
     return json.dumps(response)
 
@@ -89,23 +91,30 @@ def take_picture():
     client = get_dropbox_session()
     file_url = client.upload(filename)
 
-    response = {'response': 'OK', 'data': file_url}
+    response = {'response': 'OK', 'data': {'file_url': file_url}}
     return json.dumps(response)
 
 
 @app.route('/take_video')
 def take_video():
-    pass
+    video = CameraVideo()
 
 
-@app.route('/start_live_preview')
-def start_live_preview():
-    pass
+@app.route('/live_preview', methods=['POST, DELETE'])
+def live_preview():
+    """If the client makes a POST request start the live preview, and add the
+    CameraVideo object to the session to be able to end the live preview once
+    the client makes a DELETE request.
+    """
+    if request.method == 'POST':
+        video = CameraVideo()
+        session['video'] = video
+        video.start_live_preview()
 
-
-@app.route('/end_live_preview')
-def end_live_preview():
-    pass
+    elif request.method == 'DELETE':
+        video = session.get('video')
+        if video:
+            video.end_live_preview()
 
 
 @app.teardown_appcontext
