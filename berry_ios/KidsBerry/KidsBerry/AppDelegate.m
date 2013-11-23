@@ -10,22 +10,35 @@
 #import "SBJSON.h"
 #import "AppDelegate.h"
 #import "HelloViewController.h"
+#import "RootViewController.h"
 
 
 #define APP_KEY         @"4by5wti9t2dktp2"
 #define APP_SECRET      @"2xzsio5vcvjjcya"
-#define SERVER_IP       @"172.28.100.228:5000"
-#define SERVER_HOSTNAME @"http:172.28.100.228/login"
+#define SERVER_IP       @"172.28.100.228"
+#define SERVER_HOSTNAME @"http://172.28.100.228/login"
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 
 
 @implementation AppDelegate
 
+@synthesize navController = _navController;
+@synthesize mainViewController = _mainViewController;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc]
                    initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    self.mainViewController = [[HelloViewController alloc]
+                               initWithNibName:@"HelloViewController" bundle:nil];
+    self.navController = [[UINavigationController alloc]
+                          initWithRootViewController:self.mainViewController];
+    self.window.rootViewController = self.navController;
+    [self.window makeKeyAndVisible];
+    [self.window makeKeyAndVisible];
+
     
     /*
      * Create a DBAccountManager object. This object lets you link to a Dropbox
@@ -78,12 +91,15 @@
     }
      */
     NSString *dropboxUsername=[ NSString stringWithFormat:@"loredanaalbulescu"];
-    [[DBAccountManager sharedManager] handleOpenURL:url];
-    //[self sendToServerDropboxUsername:dropboxUsername];
-    [self receiveDataFromServer];
-    return YES;
     
-    return NO;
+    [[DBAccountManager sharedManager] handleOpenURL:url];
+    
+    RootViewController *rootViewViewController = [[RootViewController alloc] initWithNibName:@"RootViewController" bundle:nil];
+    [self.navController pushViewController:rootViewViewController animated:YES];
+
+    [self sendToServerDropboxUsername:dropboxUsername];
+    // [self receiveDataFromServer];
+    return YES;
 }
 
 
@@ -108,20 +124,15 @@
     
     [controller append:[NSString stringWithFormat:@"Dropbox Sync API Version %@\n\n", kDBSDKVersion]];
     
-    /*
-     * Check that we're given a linked account.
-     */
     
+    // Check that we're given a linked account
     if (!account || !account.linked) {
         [controller append:@"No account linked\n"];
         return NO;
     }
     
-    /*
-     * Check if shared filesystem already exists - can't create more than
-     * one DBFilesystem on the same account.
-     */
     
+    // Check if shared filesystem already exists - can't create more than one DBFilesystem on the same account.
     DBFilesystem *filesystem = [DBFilesystem sharedFilesystem];
     
     if (!filesystem) {
@@ -129,10 +140,8 @@
         [DBFilesystem setSharedFilesystem:filesystem];
     }
     
-    /*
-     * Read contents of Dropbox app folder
-     */
     
+     // Read contents of Dropbox app folder
     [controller append:@"Contents of app folder:\n"];
     
     NSArray *contents = [filesystem listFolder:[DBPath root] error:&error];
@@ -145,10 +154,8 @@
         [controller append: fileInfoLine];
     }
     
-    /*
-     * Check if our test file already exists.
-     */
     
+    //Check if our test file already exists.
     DBPath *path = [[DBPath root] childPath:TEST_FILE_NAME];
     
     if (![filesystem fileInfoForPath:path error:&error]) { /* see if path exists */
@@ -253,10 +260,7 @@
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:SERVER_HOSTNAME]];
     [request setHTTPMethod:@"POST"];
-    
     NSError *error = nil;
-    
-    //NSDictionary *jsonDictionary = @{ @"username" :username };
     NSDictionary* jsonDictionary = [NSDictionary dictionaryWithObject:username
                                                               forKey:@"username"];
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDictionary options:0 error:&error];
@@ -268,6 +272,7 @@
         NSLog(@"Unable to serialize the data %@: %@", jsonDictionary, error);
     }
 }
+
 
 //method which receive data from server
 -(void) receiveDataFromServer
@@ -281,7 +286,7 @@
     });
 }
 
-//parse out the json receive from server
+//parse the json received from server
 -(void) fetchedData:(NSData*) responseData{
     NSError* error;
     NSArray* json = [NSJSONSerialization
@@ -290,7 +295,5 @@
                      error:&error];
     NSLog(@"Json received from server %@",json);
 }
-
-
 
 @end
