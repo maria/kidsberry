@@ -9,20 +9,24 @@ app.secret_key = FLASK_SECRET_KEY
 
 @app.route('/')
 def home():
-    return "Hi!"
+    response = {'response': 'HI!'}
+    return json.dumps(response)
 
 
 @app.route('/login', methods=['POST'])
 def login():
     request_credentials = json.loads(request.form)
     session['username'] = request_credentials['username']
-    return "Successfully login"
+    response = {'response': 'Successfully logged in!',
+                'username': session['username']}
+    return json.dumps(response)
 
 
 @app.route('/logout')
 def logout():
     session.pop('username', None)
-    redirect(url_for('home'))
+    response = {'response': 'Successfully logged out!'}
+    return json.dumps(response)
 
 
 @app.route('/create_dropbox_session', methods=['POST'])
