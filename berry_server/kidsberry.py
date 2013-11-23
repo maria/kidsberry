@@ -15,14 +15,13 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    app.logger.info(request.args, request.args)
     response = {'response': 'HI!'}
     return json.dumps(response)
 
 
 @app.route('/sign_up', methods=['POST'])
 def sign_up():
-    request_data = json.loads(request.args)
+    request_data = json.loads(request.data)
     new_user = User(username=request_data['username'], email=request_data['email'])
     db_session.add(new_user)
     db_session.commit()
@@ -32,7 +31,7 @@ def sign_up():
 
 @app.route('/login', methods=['POST'])
 def login():
-    request_credentials = json.loads(request.args)
+    request_credentials = json.loads(request.data)
     if session.get(request_credentials['username']):
         response = {'response': 'You are already logged in!'}
     else:
@@ -57,7 +56,7 @@ def create_dropbox_session():
     Return a new Dropbox client session for the user.
     """
     user_access_token = get_user_dropbox_access_token
-    access_token = json.loads(request.args)['access_token']
+    access_token = json.loads(json.loads(request.data))['access_token']
 
     if user_access_token != access_token:
         user.update({'dropbox_access_token': access_token})
@@ -103,7 +102,7 @@ def take_video():
     """Take a video of a fixed duration, if none is given set the default to
     2 minutes, upload the video on Dropbox and return the file URL.
     """
-    duration = json.loads(request.args).get('duration')
+    duration = json.loads(json.loads(request.data)).get('duration')
     if not duration:
         duration = DEFAULT_VIDEO_DURATION
 
