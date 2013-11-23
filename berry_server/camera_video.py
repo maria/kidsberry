@@ -1,7 +1,7 @@
 from datetime import datetime
 from subprocess import call
 from SimpleCV import Camera, VideoStream, Color, Display
-
+import time
 
 class CameraVideo(object):
 
@@ -14,12 +14,15 @@ class CameraVideo(object):
         if self.live_preview is False:
             self.file_name = "cameraOut" + self.timestamp + ".avi"
             self.started_live_preview = True
-            video_stream = VideoStream(self.file_name)
-
-        while self.live_preview is True:
-            image = my_camera.getImage()
-            image = image.edges()
-            video_stream.writeFrame(image)
+            video_stream = VideoStream(self.file_name, fps=15)
+        framecount = 0
+        while(framecount < 1 *  600)
+        #while self.live_preview is True:
+            #image = my_camera.getImage()
+            #image = image.edges()
+            #video_stream.writeFrame(image)
+            self.my_camera.getImage().save(video_stream)
+            time.sleep(0.1)
 
 
     def stop_live_preview(self):
