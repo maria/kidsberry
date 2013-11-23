@@ -1,6 +1,7 @@
 from flask import Flask, request, session, redirect, url_for
 import json
 
+from database import db_session
 from settings_local import FLASK_SECRET_KEY
 
 app = Flask(__name__)
@@ -16,9 +17,13 @@ def home():
 @app.route('/login', methods=['POST'])
 def login():
     request_credentials = json.loads(request.form)
-    session['username'] = request_credentials['username']
-    response = {'response': 'Successfully logged in!',
-                'username': session['username']}
+    if session.get(request_credentials['username']):
+        response = {'response': 'You are already logged in!'}
+    else:
+        session['username'] = request_credentials['username']
+        response = {'response': 'Successfully logged in!',
+                    'username': session['username']}
+
     return json.dumps(response)
 
 
@@ -50,6 +55,11 @@ def get_dropbox_session(access_token):
         return
 
     return dropbox.client
+
+
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db_session.remove()
 
 
 if __name__ == '__main__':
