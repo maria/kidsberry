@@ -6,11 +6,12 @@ from settings_local import DROPBOX_API_KEY, DROPBOX_API_SECRET
 
 class DropboxClient(object):
 
-    def __init__(self, access_token, app_key=DROPBOX_API_KEY, app_secret=DROPBOX_API_SECRET):
+    def __init__(self, access_token=None, app_key=DROPBOX_API_KEY, app_secret=DROPBOX_API_SECRET):
         """Start a OAuth flow to get the user access_token in order to initialize
         the client.
-        TODO: Move this on the client side.
         """
+        # TODO: Remove this once we can connect through client.
+        access_token = 'ldeBigzAvLwAAAAAAAAAAYYDp-qWZzMOY8J6GqpaXJo'
         self.client = dropbox.client.DropboxClient(access_token)
 
 
