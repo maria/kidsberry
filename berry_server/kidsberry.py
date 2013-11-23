@@ -39,7 +39,7 @@ def login():
         response = {'response': 'You are already logged in!'}
     else:
         if User.query.filter(User.username == username).count() > 0:
-            user = User.query.get(User.username == username)
+            user = User.query.filter(User.username == username)[0]
         else:
             create_new_user(username, request_data.get('email'))
 
