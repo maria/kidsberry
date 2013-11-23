@@ -2,7 +2,7 @@ import pygame.mixer
 from time import sleep
 
 class PlaySounds(object):
-    def __init__(self, file_name):
+    def __init__(self):
         pygame.mixer.init(48000, -16, 1, 1024)
         self.channel = pygame.mixer.Channel(1)
 
