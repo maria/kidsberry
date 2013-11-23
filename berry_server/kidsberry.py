@@ -140,7 +140,7 @@ def shutdown_session(exception=None):
 if __name__ == '__main__':
     app.config.from_object('kidsberry_config.KidsberryConfig')
     import logging
-    file_handler = logging.handlers.FileHandler('/tmp/kidsberry.log')
+    file_handler = logging.FileHandler('/tmp/kidsberry.log')
     file_handler.setLevel(logging.INFO)
     app.logger.addHandler(file_handler)
     app.run()
