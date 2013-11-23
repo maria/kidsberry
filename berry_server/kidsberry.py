@@ -11,7 +11,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    from nose.tools import set_trace; set_trace()
     response = {'response': 'HI!'}
     return json.dumps(response)
 
