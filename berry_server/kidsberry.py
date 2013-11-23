@@ -55,7 +55,8 @@ def create_dropbox_session():
     database, else update the access_token.
     Return a new Dropbox client session for the user.
     """
-    user_access_token = get_user_dropbox_access_token
+    user = User.query.get(User.username == session['username'])
+    user_access_token = user.dropbox_access_token
     access_token = json.loads(json.loads(request.data))['access_token']
 
     if user_access_token != access_token:
@@ -67,7 +68,8 @@ def get_dropbox_session(access_token=None):
     """Try to connect to Dropbox. If the token is valid then return the client.
     """
     if not access_token:
-        access_token = get_user_dropbox_access_token()
+        user = User.query.get(User.username == session['username'])
+        access_token = user.dropbox_access_token
     try:
         dropbox = DropboxClient(access_token)
     except Exception:
@@ -75,11 +77,6 @@ def get_dropbox_session(access_token=None):
         return
 
     return dropbox.client
-
-
-def get_user_dropbox_access_token():
-    user = User.query.get(User.username == session['username'])
-    return user.dropbox_access_token
 
 
 @app.route('/take_picture')
