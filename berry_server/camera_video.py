@@ -16,7 +16,7 @@ class CameraVideo(object):
             self.started_live_preview = True
             video_stream = VideoStream(self.file_name, fps=15)
         framecount = 0
-        while(framecount < 1 *  600):
+        while(framecount < 30):
         #while self.live_preview is True:
             #image = my_camera.getImage()
             #image = image.edges()
