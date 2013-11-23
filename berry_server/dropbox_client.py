@@ -11,13 +11,6 @@ class DropboxClient(object):
         the client.
         TODO: Move this on the client side.
         """
-        self.flow = dropbox.client.DropboxOAuth2FlowNoRedirect(app_key, app_secret)
-        authorize_url = self.flow.start()
-        print("Go to ", authorize_url)
-        print("Introduce authorization code:")
-        authorization_code = raw_input().strip()
-        access_token, user_id = self.flow.finish(authorization_code)
-
         self.client = dropbox.client.DropboxClient(access_token)
 
 
