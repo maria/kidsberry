@@ -1,24 +1,28 @@
-from flask import Flask, request, session, redirect, url_for
 import json
 
+from flask import Flask, request, session, redirect, url_for, g
+
 from camera_picture import CameraPicture
+from camera_video import CameraVideo
 from database import db_session
 from models import User
 from settings_local import FLASK_SECRET_KEY
+
+DEFAULT_VIDEO_DURATION = 120
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def home():
-    from nose.tools import set_trace; set_trace()
+    app.logger.info(request.args, request.args)
     response = {'response': 'HI!'}
     return json.dumps(response)
 
 
 @app.route('/sign_up', methods=['POST'])
 def sign_up():
-    request_data = json.loads(request.form)
+    request_data = json.loads(request.args)
     new_user = User(username=request_data['username'], email=request_data['email'])
     db_session.add(new_user)
     db_session.commit()
@@ -28,13 +32,13 @@ def sign_up():
 
 @app.route('/login', methods=['POST'])
 def login():
-    request_credentials = json.loads(request.form)
+    request_credentials = json.loads(request.args)
     if session.get(request_credentials['username']):
         response = {'response': 'You are already logged in!'}
     else:
         session['username'] = request_credentials['username']
         response = {'response': 'Successfully logged in!',
-                    'username': session['username']}
+                    'data': {'username': session['username']}}
 
     return json.dumps(response)
 
@@ -53,7 +57,7 @@ def create_dropbox_session():
     Return a new Dropbox client session for the user.
     """
     user_access_token = get_user_dropbox_access_token
-    access_token = json.loads(request.form)['access_token']
+    access_token = json.loads(request.args)['access_token']
 
     if user_access_token != access_token:
         user.update({'dropbox_access_token': access_token})
@@ -90,23 +94,42 @@ def take_picture():
     client = get_dropbox_session()
     file_url = client.upload(filename)
 
-    response = {'response': 'OK', 'data': file_url}
+    response = {'response': 'OK', 'data': {'file_url': file_url}}
     return json.dumps(response)
 
 
 @app.route('/take_video')
 def take_video():
-    pass
+    """Take a video of a fixed duration, if none is given set the default to
+    2 minutes, upload the video on Dropbox and return the file URL.
+    """
+    duration = json.loads(request.args).get('duration')
+    if not duration:
+        duration = DEFAULT_VIDEO_DURATION
+
+    video = CameraVideo()
+    filename = video.take_video(duration)
+
+    client = get_dropbox_session()
+    video_url = client.upload(filename)
+
+    response = {'data': {'video_url': video_url}}
 
 
-@app.route('/start_live_preview')
-def start_live_preview():
-    pass
+@app.route('/live_preview', methods=['POST, DELETE'])
+def live_preview():
+    """If the client makes a POST request start the live preview, and add the
+    CameraVideo object to the session to be able to end the live preview once
+    the client makes a DELETE request.
+    """
+    if request.method == 'POST':
+        video = CameraVideo()
+        setattr(g, 'video', video)
+        video.start_live_preview()
 
-
-@app.route('/end_live_preview')
-def end_live_preview():
-    pass
+    elif request.method == 'DELETE' and hasattr(g, 'video'):
+        video = g['video']
+        video.end_live_preview()
 
 
 @app.teardown_appcontext
@@ -116,4 +139,8 @@ def shutdown_session(exception=None):
 
 if __name__ == '__main__':
     app.config.from_object('kidsberry_config.KidsberryConfig')
+    import logging
+    file_handler = logging.handlers.FileHandler('/tmp/kidsberry.log')
+    file_handler.setLevel(logging.INFO)
+    app.logger.addHandler(file_handler)
     app.run()
