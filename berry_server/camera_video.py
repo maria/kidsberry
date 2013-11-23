@@ -15,8 +15,9 @@ class CameraVideo(object):
             self.file_name = "cameraOut" + self.timestamp + ".avi"
             self.started_live_preview = True
             video_stream = VideoStream(self.file_name, fps=15)
-
-        while self.live_preview is True:
+        framecount = 0
+        while(framecount < 1 *  600)
+        #while self.live_preview is True:
             #image = my_camera.getImage()
             #image = image.edges()
             #video_stream.writeFrame(image)
