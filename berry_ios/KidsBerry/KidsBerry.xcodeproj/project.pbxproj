@@ -21,7 +21,15 @@
 		FFA95F991840B70D00874CFB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA95F7B1840B70D00874CFB /* UIKit.framework */; };
 		FFA95FA11840B70D00874CFB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FFA95F9F1840B70D00874CFB /* InfoPlist.strings */; };
 		FFA95FA31840B70D00874CFB /* KidsBerryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA95FA21840B70D00874CFB /* KidsBerryTests.m */; };
-		FFA95FAD1840BFA300874CFB /* dropbox-ios-sync-sdk-2.0.3 in Resources */ = {isa = PBXBuildFile; fileRef = FFA95FAC1840BFA300874CFB /* dropbox-ios-sync-sdk-2.0.3 */; };
+		FFDC33031840C3BB00CC926B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFDC33021840C3BB00CC926B /* CFNetwork.framework */; };
+		FFDC33051840C3C900CC926B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFDC33041840C3C900CC926B /* Security.framework */; };
+		FFDC33071840C3D800CC926B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFDC33061840C3D800CC926B /* SystemConfiguration.framework */; };
+		FFDC33091840C3E400CC926B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFDC33081840C3E400CC926B /* QuartzCore.framework */; };
+		FFDC330B1840C3F600CC926B /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FFDC330A1840C3F600CC926B /* libc++.dylib */; };
+		FFDC330F1840C7D000CC926B /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFDC330E1840C7D000CC926B /* Dropbox.framework */; };
+		FFDC33111840C86600CC926B /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFDC33101840C86600CC926B /* FacebookSDK.framework */; };
+		FFDC33151840D4A800CC926B /* HelloViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFDC33131840D4A800CC926B /* HelloViewController.m */; };
+		FFDC33161840D4A800CC926B /* HelloViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFDC33141840D4A800CC926B /* HelloViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +62,16 @@
 		FFA95F9E1840B70D00874CFB /* KidsBerryTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KidsBerryTests-Info.plist"; sourceTree = "<group>"; };
 		FFA95FA01840B70D00874CFB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FFA95FA21840B70D00874CFB /* KidsBerryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KidsBerryTests.m; sourceTree = "<group>"; };
-		FFA95FAC1840BFA300874CFB /* dropbox-ios-sync-sdk-2.0.3 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "dropbox-ios-sync-sdk-2.0.3"; sourceTree = "<group>"; };
+		FFDC33021840C3BB00CC926B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		FFDC33041840C3C900CC926B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		FFDC33061840C3D800CC926B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		FFDC33081840C3E400CC926B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		FFDC330A1840C3F600CC926B /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		FFDC330E1840C7D000CC926B /* Dropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dropbox.framework; sourceTree = "<group>"; };
+		FFDC33101840C86600CC926B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		FFDC33121840D4A800CC926B /* HelloViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloViewController.h; sourceTree = "<group>"; };
+		FFDC33131840D4A800CC926B /* HelloViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelloViewController.m; sourceTree = "<group>"; };
+		FFDC33141840D4A800CC926B /* HelloViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelloViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,8 +79,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFDC330B1840C3F600CC926B /* libc++.dylib in Frameworks */,
+				FFDC33111840C86600CC926B /* FacebookSDK.framework in Frameworks */,
+				FFDC33091840C3E400CC926B /* QuartzCore.framework in Frameworks */,
+				FFDC33071840C3D800CC926B /* SystemConfiguration.framework in Frameworks */,
+				FFDC33051840C3C900CC926B /* Security.framework in Frameworks */,
+				FFDC33031840C3BB00CC926B /* CFNetwork.framework in Frameworks */,
 				FFA95F7A1840B70D00874CFB /* CoreGraphics.framework in Frameworks */,
 				FFA95F7C1840B70D00874CFB /* UIKit.framework in Frameworks */,
+				FFDC330F1840C7D000CC926B /* Dropbox.framework in Frameworks */,
 				FFA95F781840B70D00874CFB /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -84,7 +108,6 @@
 		FFA95F6B1840B70D00874CFB = {
 			isa = PBXGroup;
 			children = (
-				FFA95FAC1840BFA300874CFB /* dropbox-ios-sync-sdk-2.0.3 */,
 				FFA95F7D1840B70D00874CFB /* KidsBerry */,
 				FFA95F9C1840B70D00874CFB /* KidsBerryTests */,
 				FFA95F761840B70D00874CFB /* Frameworks */,
@@ -104,6 +127,13 @@
 		FFA95F761840B70D00874CFB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FFDC33101840C86600CC926B /* FacebookSDK.framework */,
+				FFDC330E1840C7D000CC926B /* Dropbox.framework */,
+				FFDC330A1840C3F600CC926B /* libc++.dylib */,
+				FFDC33081840C3E400CC926B /* QuartzCore.framework */,
+				FFDC33061840C3D800CC926B /* SystemConfiguration.framework */,
+				FFDC33041840C3C900CC926B /* Security.framework */,
+				FFDC33021840C3BB00CC926B /* CFNetwork.framework */,
 				FFA95F771840B70D00874CFB /* Foundation.framework */,
 				FFA95F791840B70D00874CFB /* CoreGraphics.framework */,
 				FFA95F7B1840B70D00874CFB /* UIKit.framework */,
@@ -122,6 +152,9 @@
 				FFA95F8D1840B70D00874CFB /* ViewController.m */,
 				FFA95F8F1840B70D00874CFB /* Images.xcassets */,
 				FFA95F7E1840B70D00874CFB /* Supporting Files */,
+				FFDC33121840D4A800CC926B /* HelloViewController.h */,
+				FFDC33131840D4A800CC926B /* HelloViewController.m */,
+				FFDC33141840D4A800CC926B /* HelloViewController.xib */,
 			);
 			path = KidsBerry;
 			sourceTree = "<group>";
@@ -234,7 +267,7 @@
 				FFA95F901840B70D00874CFB /* Images.xcassets in Resources */,
 				FFA95F821840B70D00874CFB /* InfoPlist.strings in Resources */,
 				FFA95F8B1840B70D00874CFB /* Main.storyboard in Resources */,
-				FFA95FAD1840BFA300874CFB /* dropbox-ios-sync-sdk-2.0.3 in Resources */,
+				FFDC33161840D4A800CC926B /* HelloViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,6 +289,7 @@
 				FFA95F8E1840B70D00874CFB /* ViewController.m in Sources */,
 				FFA95F881840B70D00874CFB /* AppDelegate.m in Sources */,
 				FFA95F841840B70D00874CFB /* main.m in Sources */,
+				FFDC33151840D4A800CC926B /* HelloViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,9 +416,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/Loredana/Desktop/rails_apps/kidsberry/berry_ios/KidsBerry/dropbox-ios-sync-sdk-2.0.3",
+					/Users/Loredana/Desktop/rails_apps/kidsberry/berry_ios/KidsBerry,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KidsBerry/KidsBerry-Prefix.pch";
 				INFOPLIST_FILE = "KidsBerry/KidsBerry-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -395,9 +435,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/Loredana/Desktop/rails_apps/kidsberry/berry_ios/KidsBerry/dropbox-ios-sync-sdk-2.0.3",
+					/Users/Loredana/Desktop/rails_apps/kidsberry/berry_ios/KidsBerry,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KidsBerry/KidsBerry-Prefix.pch";
 				INFOPLIST_FILE = "KidsBerry/KidsBerry-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -464,6 +510,7 @@
 				FFA95FA81840B70D00874CFB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FFA95FA91840B70D00874CFB /* Build configuration list for PBXNativeTarget "KidsBerryTests" */ = {
 			isa = XCConfigurationList;
@@ -472,6 +519,7 @@
 				FFA95FAB1840B70D00874CFB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

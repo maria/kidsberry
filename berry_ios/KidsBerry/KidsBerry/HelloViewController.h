@@ -1,0 +1,16 @@
+//
+//  HelloViewController.h
+//  KidsBerry
+//
+//  Created by Loredana Albulescu on 11/23/13.
+//  Copyright (c) 2013 Loredana Albulescu. All rights reserved.
+//
+#import <UIKit/UIKit.h>
+
+@interface HelloViewController : UIViewController
+
+- (void)addTextView;
+- (void)append:(NSString *)toWrite;
+- (void)set:(NSString *)toWrite;
+
+@end
