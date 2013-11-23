@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>C4BF739E-74C3-430A-914A-80A4C3FD80DC</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Files Examples</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>5C394EDC-C46C-49C0-8623-15081A9B3EF4</key>
+		<string>https://sonic.corp.dropbox.com/repos-git/syncapi.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>objc/examples/Files Examples.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>5C394EDC-C46C-49C0-8623-15081A9B3EF4</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://sonic.corp.dropbox.com/repos-git/syncapi.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>5C394EDC-C46C-49C0-8623-15081A9B3EF4</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5C394EDC-C46C-49C0-8623-15081A9B3EF4</string>
+			<key>IDESourceControlWCCName</key>
+			<string>syncsdk</string>
+		</dict>
+	</array>
+</dict>
+</plist>
