@@ -127,10 +127,9 @@ def live_preview():
         setattr(g, 'video', video)
         video.start_live_preview()
 
-    elif request.method == 'DELETE':
-        if hasattr(g, 'video')
-            video = g['video']
-            video.end_live_preview()
+    elif request.method == 'DELETE' and hasattr(g, 'video'):
+        video = g['video']
+        video.end_live_preview()
 
 
 @app.teardown_appcontext
