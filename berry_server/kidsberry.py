@@ -22,20 +22,33 @@ def home():
 @app.route('/sign_up', methods=['POST'])
 def sign_up():
     request_data = json.loads(request.data)
-    new_user = User(username=request_data['username'], email=request_data['email'])
-    db_session.add(new_user)
-    db_session.commit()
+    new_user = create_new_user(request_data['username'],
+			       request_data['email'])
     response = {'response': 'Your account was successfully created'}
     return json.dumps(response)
 
 
+def create_new_user(username, email=None, **kwargs):
+    new_user = User(username=username, email=email)
+    db_session.add(new_user)
+    db_session.commit()
+    return new_user
+
+
 @app.route('/login', methods=['POST'])
 def login():
-    request_credentials = json.loads(request.data)
-    if session.get(request_credentials['username']):
+    request_data = json.loads(request.data)
+    username = request_data['username']
+    if session.get(username):
         response = {'response': 'You are already logged in!'}
     else:
-        session['username'] = request_credentials['username']
+	users = User.query.filter(User.username == username)
+        if len(users) > 0:
+            user = users[0]
+        else:
+            create_new_user(username)
+
+        session['username'] = username
         response = {'response': 'Successfully logged in!',
                     'data': {'username': session['username']}}
 
