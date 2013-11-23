@@ -10,7 +10,7 @@ class CameraPicture(object):
     def take_picture(self):
         frame = self.my_camera.getImage()
         self.timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-        file_name = "cameraOut" + self.timestamp + ".jpg"
+        file_name = "/tmp/cameraOut" + self.timestamp + ".jpg"
         frame.save(file_name)
         return file_name
 
