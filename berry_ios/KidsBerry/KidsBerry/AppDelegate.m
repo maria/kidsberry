@@ -7,14 +7,17 @@
 //
 
 #import <Dropbox/Dropbox.h>
-
+#import "SBJSON.h"
 #import "AppDelegate.h"
 #import "HelloViewController.h"
 
 
+#define APP_KEY         @"4by5wti9t2dktp2"
+#define APP_SECRET      @"2xzsio5vcvjjcya"
+#define SERVER_IP       @"172.28.100.228:5000"
+#define SERVER_HOSTNAME @"http:172.28.100.228/login"
 
-#define APP_KEY     @"4by5wti9t2dktp2"
-#define APP_SECRET  @"2xzsio5vcvjjcya"
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 
 
 @implementation AppDelegate
@@ -35,6 +38,8 @@
                                     secret:APP_SECRET];
     [DBAccountManager setSharedManager:accountMgr];
     
+
+    
     HelloViewController *helloController = [HelloViewController new];
     
     self.window.rootViewController = helloController;
@@ -43,12 +48,12 @@
     
     /*
      * Skip directly to test if user has already linked their account
-     */
+    
     
     if (accountMgr.linkedAccount) {
         [self doDropboxTestWithAccount:accountMgr.linkedAccount];
     }
-    
+     */
     return YES;
 }
 
@@ -61,7 +66,9 @@
   sourceApplication:(NSString *)source annotation:(id)annotation
 {
    
+    /*
     DBAccount *account = [[DBAccountManager sharedManager] handleOpenURL:url];
+     
     if (account) {
         NSLog(@"App linked successfully!");
         
@@ -69,8 +76,12 @@
         
         return YES;
     }
-   // [[DBAccountManager sharedManager] handleOpenURL:url];
-    // return YES;
+     */
+    NSString *dropboxUsername=[ NSString stringWithFormat:@"loredanaalbulescu"];
+    [[DBAccountManager sharedManager] handleOpenURL:url];
+    //[self sendToServerDropboxUsername:dropboxUsername];
+    [self receiveDataFromServer];
+    return YES;
     
     return NO;
 }
@@ -236,6 +247,48 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+-(void) sendToServerDropboxUsername:(NSString *)username
+{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:SERVER_HOSTNAME]];
+    [request setHTTPMethod:@"POST"];
+    
+    NSError *error = nil;
+    
+    //NSDictionary *jsonDictionary = @{ @"username" :username };
+    NSDictionary* jsonDictionary = [NSDictionary dictionaryWithObject:username
+                                                              forKey:@"username"];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDictionary options:0 error:&error];
+    
+    if (jsonData) {
+        NSLog(@"Sending data to server: %@", jsonData);
+        [request setHTTPBody:jsonData];
+    } else {
+        NSLog(@"Unable to serialize the data %@: %@", jsonDictionary, error);
+    }
+}
+
+//method which receive data from server
+-(void) receiveDataFromServer
+{
+    NSString *url= [NSString stringWithFormat:@"http:172.28.100.228/"];
+                           
+    dispatch_async(kBgQueue, ^{
+        NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+        [self performSelectorOnMainThread:@selector(fetchedData:)
+                               withObject:data waitUntilDone:YES];
+    });
+}
+
+//parse out the json receive from server
+-(void) fetchedData:(NSData*) responseData{
+    NSError* error;
+    NSArray* json = [NSJSONSerialization
+                     JSONObjectWithData:responseData
+                     options:kNilOptions
+                     error:&error];
+    NSLog(@"Json received from server %@",json);
 }
 
 
