@@ -1,6 +1,6 @@
 import json
 
-from flask import Flask, request, session, redirect, url_for, g
+from flask import Flask, request, session, redirect, url_for
 
 from camera_picture import CameraPicture
 from camera_video import CameraVideo
@@ -124,11 +124,11 @@ def live_preview():
     """
     if request.method == 'POST':
         video = CameraVideo()
-        setattr(g, 'video', video)
+        session['video'] = video
         video.start_live_preview()
 
-    elif request.method == 'DELETE' and hasattr(g, 'video'):
-        video = g['video']
+    elif request.method == 'DELETE' and session.get('video'):
+        video = session['video']
         video.end_live_preview()
 
 
@@ -140,7 +140,7 @@ def shutdown_session(exception=None):
 if __name__ == '__main__':
     app.config.from_object('kidsberry_config.KidsberryConfig')
     import logging
-    file_handler = logging.handlers.FileHandler('/tmp/kidsberry.log')
+    file_handler = logging.FileHandler('/tmp/kidsberry.log')
     file_handler.setLevel(logging.INFO)
     app.logger.addHandler(file_handler)
     app.run()
