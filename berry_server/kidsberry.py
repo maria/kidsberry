@@ -151,4 +151,5 @@ if __name__ == '__main__':
     file_handler = logging.FileHandler('/tmp/kidsberry.log')
     file_handler.setLevel(logging.INFO)
     app.logger.addHandler(file_handler)
+    db_session.begin()
     app.run()
