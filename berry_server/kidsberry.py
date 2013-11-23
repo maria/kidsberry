@@ -5,6 +5,7 @@ from flask import Flask, request, session, redirect, url_for
 from camera_picture import CameraPicture
 from camera_video import CameraVideo
 from database import db_session
+from dropbox_client import DropboxClient
 from models import User
 from settings_local import FLASK_SECRET_KEY
 
@@ -69,12 +70,16 @@ def create_dropbox_session():
     database, else update the access_token.
     Return a new Dropbox client session for the user.
     """
-    user = User.query.get(User.username == session['username'])
+    request_data = json.loads(request.data)
+
+    user = User.query.filter(User.username == session['username'])[0]
     user_access_token = user.dropbox_access_token
-    access_token = json.loads(json.loads(request.data))['access_token']
+    access_token = request_data['access_token']
 
     if user_access_token != access_token:
-        user.update({'dropbox_access_token': access_token})
+        user.dropbox_access_token = access_token
+        db_session.add(user)
+
     return get_dropbox_session(access_token)
 
 
