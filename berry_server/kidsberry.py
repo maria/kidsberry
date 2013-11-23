@@ -51,6 +51,7 @@ def login():
 def create_new_user(username, email=None, **kwargs):
     new_user = User(username=username, email=email)
     db_session.add(new_user)
+    db_session.commit()
     return new_user
 
 
@@ -151,5 +152,4 @@ if __name__ == '__main__':
     file_handler = logging.FileHandler('/tmp/kidsberry.log')
     file_handler.setLevel(logging.INFO)
     app.logger.addHandler(file_handler)
-    db_session.begin()
     app.run()
