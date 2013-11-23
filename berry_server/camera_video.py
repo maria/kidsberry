@@ -1,6 +1,5 @@
 from datetime import datetime
-from time import sleep
-
+from subprocess import call
 from SimpleCV import Camera, VideoStream, Color, Display
 
 
