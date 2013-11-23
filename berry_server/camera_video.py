@@ -17,7 +17,7 @@ class CameraVideo(object):
             self.started_live_preview = True
             video_stream = VideoStream(self.file_name)
 
-        while self.live_previw is True:
+        while self.live_preview is True:
             image = my_camera.getImage()
             image = image.edges()
             video_stream.writeFrame(image)
@@ -33,4 +33,4 @@ class CameraVideo(object):
         return outname
 
     def take_video(self, duration):
-        pass
+       pass
