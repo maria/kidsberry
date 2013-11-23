@@ -99,8 +99,13 @@ def take_video():
     pass
 
 
-@app.route('/live_preview')
-def live_preview():
+@app.route('/start_live_preview')
+def start_live_preview():
+    pass
+
+
+@app.route('/end_live_preview')
+def end_live_preview():
     pass
 
 
