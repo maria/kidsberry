@@ -1,0 +1,60 @@
+Dropbox API SDK for iOS
+=======================
+
+This is the iOS SDK for the Dropbox API, including the new [Dropbox Datastore API](https://www.dropbox.com/developers/datastore).
+
+Installing
+----------
+Installation instructions for Dropbox.framework can be
+found [here](https://www.dropbox.com/developers/datastore/sdks).
+
+Getting Started
+---------------
+To learn how to build your first app using the Datastore API, follow the
+Datastore [tutorial](https://www.dropbox.com/developers/datastore/tutorial).
+
+There is also a [Sync API tutorial](https://www.dropbox.com/developers/sync/tutorial) to show you how to read and write files from Dropbox.
+
+Examples
+--------
+There are two Xcode projects in the Examples directory with examples of how to
+use the Datastore and File Sync API. 
+
+In "Datastore Examples.xcodeproj", you can find the Tasks example app that
+demonstrates the basics of using the Datastore API to store a task list.
+The Tasks app requires iOS 5.0 or later.
+
+In "Files Examples.xcodeproj", you can find three example apps that
+demonstrate the basics of the File Sync API:
+
+The HelloDropbox example app demonstrates the same basic functionality
+as the online tutorial: listing a folder, and reading/writing a file.
+It prints results as text to the screen.  HelloDropbox requires iOS
+5.0 or later.
+
+The Notes example app demonstrates a note editing app built with the
+Sync SDK. This application demonstrates how to read and save files
+with the Sync SDK, how to use the API to create files and folders, and
+also how to observe files and folders for changes and update a view of
+the file or directory's contents when the contents change.  Notes
+requires iOS 5.0 or later.
+
+The ImageGrid example app demonstrates how to use File observers and
+more properties of the FileStatus class to update a UI with changes to
+a file's state. This example works best when run on two devices
+connected to the same Dropbox account as it shows how to build an app
+that responds to file status changes as the changes occur.  To use
+this app you'll need some photos to select when the image picker
+appears.  On a simulator, you can get some by saving them from Safari.
+(Drag an image onto the simulator, then long-touch and select Save.)
+ImageGrid uses UICollectionView and requires iOS 6.0 or later.
+
+Documentation
+-------------
+
+You can install the Xcode docset by running the following command from
+this directory:
+
+    cp -R com.dropbox.Dropbox.docset ~/Library/Developer/Shared/Documentation/DocSets
+
+Then restart Xcode to complete the installation.

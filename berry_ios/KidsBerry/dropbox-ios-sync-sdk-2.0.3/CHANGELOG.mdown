@@ -1,0 +1,146 @@
+Changes to the Sync API for iOS
+===============================
+
+Changes in 2.0.3
+----------------
+- fix possible HTTP 400 when merging a datastore created locally when it
+  already exists on the server
+- improvements to network reachability detection in Airplane mode
+- made small change to login UI
+
+Changes in 2.0.2
+----------------
+- add new method -[DBList moveObjectAtIndex:1 toIndex:]
+- fix bug where tables with no records were still listed after sync
+- ensure stored credentials are accessible in the background (after the
+  first time the device is unlocked)
+- fix potential crash in error logging
+
+Changes in 2.0.1
+----------------
+- Support 64 bit builds on iOS 7
+- reduce memory usage when appending to large files
+
+Changes in 2.0.0
+----------------
+The Sync API now contains both Datastore and File/Folder sync functionality.
+
+### Feature Changes
+- added the new Datastores API
+- added batch downloads for thumbnails
+
+### Bugs Fixed
+- check for reserved path names regardless of case
+- fix duplicate DBSyncStatus definition issue in .mm files
+- fix failure to re-create DBAccountManager after it is destroyed
+- fix circular reference keeping DBAccountManager from being deallocated
+- fix memory leak if DBDatastoreManager is deallocated with uploads or downloads
+  outstanding
+- other stability and performance improvements
+
+Changes in 1.1.3
+----------------
+- ensure compatibility with iOS 7 and XCode 5
+- handle shutdown during HTTP as failure, not success
+- work around incompatibility with other SDKs using the Jansson JSON parser
+- fix crash on attempt to open a not-yet-uploaded locally-created directory as a file
+- fix error code reported when the user is over quota
+- add public kDBSDKVersion constant, and add version.txt file to Dropbox.framework
+- fix ref-counting assertion when combining some redundant operations offline
+- fix server error with offline mkdir not delivered until after restart
+
+Changes in 1.1.2
+----------------
+- add compatibility with iOS 5.0
+- fix circular reference keeping DBAccountManager from being deallocated
+- fix duplicate DBSyncStatus definition issue in .mm files
+
+Changes in 1.1.1
+----------------
+- fix longpoll timeout calculation when app resumes from suspended state
+- fix failure to re-create DBAccountManager after it is destroyed
+- added Hello Dropbox sample app
+
+Changes in 1.1.0
+----------------
+
+### New Features
+- support for File types applications
+- support for server-generated thumbnails for images
+- support for generating sharable links
+- use long-polling to the server for faster updates and reduced
+  power usage
+- added icon name to DBFileInfo
+- added appendData and appendString methods to DBFile
+
+### Potentially Breaking Changes
+- Dropbox.framework now requires libc++.dylib.  You can include this
+  with the other frameworks in the "Link Binary with Libraries" build
+  phase of your project target.
+- renamed DBSyncStatusOnline to DBSyncStatusActive to properly reflect
+  its meaning
+- files are now not downloaded in the background if the DbxFile is no longer open
+- path listeners are now triggered by file creation
+- path listeners are now not triggered by upload or download completion
+
+### Other Changes
+- added ImageGrid example app to demonstrate use of observers and thumbnails
+- cancel outstanding server requests to avoid delays on unlink or shutdown
+- optimized upload processing to avoid redundant operations
+- fix incorrect calculation of DBFileStatus.progress before
+  upload/download begins, and for large files
+- improved error behavior when attempting to write a non-file path into a DBFile
+- various performance and stability fixes
+
+Changes in 1.0.8
+----------------
+- fix leak of file descriptor during file upload
+- add timeout on HTTP requests, and ensure cleanup of request state
+- allow use of DBFileInfo in hash tables
+- better recovery in case of cache corruption
+
+Changes in 1.0.7
+----------------
+- add the -[DBFilesystem addObserver:block:] method which allows you to get updates when
+  the filesystem's status, shutDown, or completedFirstSync properties change.
+- add -[DBAccountManager linkedAccounts] to allow linking to multiple user accounts
+- fix leak when unlinking accounts
+- fix error on long-running uploads
+- fix leak of file descriptor when writing a file
+
+Changes in 1.0.6
+----------------
+- fix authentication bug
+- rename enum DBSyncStatus to DBSyncStatusFlags to avoid errors when compiling
+  Objective-C++
+
+Changes in 1.0.5
+----------------
+- fix memory leaks
+
+Changes in 1.0.4
+----------------
+- fix unnecessary redownloading of files written locally
+- fix regression from 1.0.3 where files that were closed couldn't be opened again
+- make sure DBSyncStatus always reports uploading when a file is uploading
+- fix a possible hang during DBFilesystem startup
+
+Changes in 1.0.3
+----------------
+- don't call a DBFilesystem path observer if a file's download progress changes
+- better error messages if you try to use a closed file
+- don't warn if -[DBFilesystem fileInfoForPath:error:] is called on a file that doesn't exist
+- don't warn on successful call to -[DBFile update]
+
+Changes in 1.0.2
+----------------
+- actually block when you read an uncached file
+- report the correct download progress
+
+Changes in 1.0.1
+----------------
+- bug fixes
+
+Changes in 1.0
+--------------
+- initial release of Sync API for iOS
