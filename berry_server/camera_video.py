@@ -16,6 +16,7 @@ class CameraVideo(object):
             self.file_name = "cameraOut" + self.timestamp + ".avi"
             self.started_live_preview = True
             video_stream = VideoStream(self.file_name)
+
         while self.live_previw is True:
             image = my_camera.getImage()
             image = image.edges()
@@ -28,4 +29,7 @@ class CameraVideo(object):
         params = " -i {0} {1}".format(self.file_name, outname)
         # run ffmpeg to compress your video.
         call('ffmpeg' + params, shell=True)
-        return self.file_name
+        return outname
+
+    def take_video(self, duration):
+        pass

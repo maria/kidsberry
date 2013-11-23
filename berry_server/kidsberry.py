@@ -8,6 +8,8 @@ from database import db_session
 from models import User
 from settings_local import FLASK_SECRET_KEY
 
+DEFAULT_VIDEO_DURATION = 120
+
 app = Flask(__name__)
 
 
@@ -97,7 +99,20 @@ def take_picture():
 
 @app.route('/take_video')
 def take_video():
+    """Take a video of a fixed duration, if none is given set the default to
+    2 minutes, upload the video on Dropbox and return the file URL.
+    """
+    duration = json.loads(request.form).get('duration')
+    if not duration:
+        duration = DEFAULT_VIDEO_DURATION
+
     video = CameraVideo()
+    filename = video.take_video(duration)
+
+    client = get_dropbox_session()
+    video_url = client.upload(filename)
+
+    response = {'data': {'video_url': video_url}}
 
 
 @app.route('/live_preview', methods=['POST, DELETE'])
