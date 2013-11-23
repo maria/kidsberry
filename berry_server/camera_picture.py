@@ -2,14 +2,15 @@ from SimpleCV import Camera
 from time import sleep
 from datetime import datetime
 
-myCamera = Camera(prop_set={'width':320, 'height': 240})
-timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+class CameraPicture(object):
 
-class CameraPicture:
+    def __init__(self):
+        self.my_camera = Camera(prop_set={'width':320, 'height': 240})
 
-	def takePicture(self):
-		frame = myCamera.getImage()
-		fileName = "cameraOut" + timestamp + ".jpg"
-		frame.save(filename)
-		return filename
-	
+    def take_picture(self):
+        frame = self.my_camera.getImage()
+        self.timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+        file_name = "cameraOut" + self.timestamp + ".jpg"
+        frame.save(file_name)
+        return file_name
+
