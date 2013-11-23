@@ -1,15 +1,28 @@
-import logging
-
-from flask import Flask, request
+from flask import Flask, request, session, redirect, url_for
 import json
 
+from settings_local import FLASK_SECRET_KEY
+
 app = Flask(__name__)
-logger = logging.getLogger(__name__)
+app.secret_key = FLASK_SECRET_KEY
 
 
 @app.route('/')
 def home():
-    pass
+    return "Hi!"
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    request_credentials = json.loads(request.form)
+    session['username'] = request_credentials['username']
+    return "Successfully login"
+
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    redirect(url_for('home'))
 
 
 @app.route('/create_dropbox_session', methods=['POST'])
@@ -18,7 +31,7 @@ def create_dropbox_session():
     try:
         dropbox = DropboxClient(request_credentials)
     except:
-        logger.exception("Couldn't connect to Dropbox!")
+        app.logger.warning("Couldn't connect to Dropbox!")
 
     return dropbox.client
 
@@ -29,7 +42,7 @@ def get_dropbox_session(access_token):
     try:
         dropbox = DropboxClient(access_token)
     except Exception:
-        logger.exception("User wasn't able to authenticate to Dropbox!")
+        app.logger.warning("User wasn't able to authenticate to Dropbox!")
         return
 
     return dropbox.client
