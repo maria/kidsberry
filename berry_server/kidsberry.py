@@ -11,6 +11,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
+    from nose.tools import set_trace; set_trace()
     response = {'response': 'HI!'}
     return json.dumps(response)
 
@@ -21,7 +22,7 @@ def sign_up():
     new_user = User(username=request_data['username'], email=request_data['email'])
     db_session.add(new_user)
     db_session.commit()
-    response = {'response': 'Your account was uccessfully created'}
+    response = {'response': 'Your account was successfully created'}
     return json.dumps(response)
 
 
@@ -91,6 +92,16 @@ def take_picture():
 
     response = {'response': 'OK', 'data': file_url}
     return json.dumps(response)
+
+
+@app.route('/take_video')
+def take_video():
+    pass
+
+
+@app.route('/live_preview')
+def live_preview():
+    pass
 
 
 @app.teardown_appcontext
