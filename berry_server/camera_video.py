@@ -12,11 +12,11 @@ class CameraVideo(object):
 
     def start_live_preview(self):
         if self.live_preview is False:
-            self.file_name = "cameraOut" + self.timestamp + ".avi"
+            self.file_name = "/tmp/cameraOut" + self.timestamp + ".avi"
             self.started_live_preview = True
             video_stream = VideoStream(self.file_name, fps=15)
         framecount = 0
-        while(framecount < 30):
+        while(framecount < 15*60):
         #while self.live_preview is True:
             #image = my_camera.getImage()
             #image = image.edges()
