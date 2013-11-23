@@ -1,6 +1,5 @@
 from datetime import datetime
-from time import sleep
-
+from subprocess import call
 from SimpleCV import Camera, VideoStream, Color, Display
 
 
@@ -8,7 +7,7 @@ class CameraVideo(object):
 
     def __init__(self):
         self.my_camera = Camera(prop_set={'width': 320, 'height': 240})
-        self.live_preview = 0
+        self.live_preview = False
         self.timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
 
     def start_live_preview(self):
@@ -27,9 +26,9 @@ class CameraVideo(object):
         self.live_preview = False
         # construct the encoding arguments
         outname = self.file_name.replace('.avi', '.mp4')
-        params = " -i {0} {1}".format(self.file_name, outname)
+        #params = " -i {0} {1}".format(self.file_name, outname)
         # run ffmpeg to compress your video.
-        call('ffmpeg' + params, shell=True)
+        #call('ffmpeg' + params, shell=True)
         return outname
 
     def take_video(self, duration):
