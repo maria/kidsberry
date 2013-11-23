@@ -22,18 +22,27 @@ def home():
 
 @app.route('/sign_up', methods=['POST'])
 def sign_up():
+    """Create a new account if no other account with the same email address
+    exists.
+    """
     request_data = json.loads(request.data)
-    new_user = create_new_user(request_data['username'],
-                               request_data['email'])
-    user = User.query.filter(User.email == new_user.email)[0]
+    if User.query.filter(User.email == request_data['email']).count() > 0:
+        response = {'response': 'You already have an account!'}
+    else:
+        new_user = create_new_user(request_data['username'],
+                                   request_data['email'])
+        user = User.query.filter(User.email == new_user.email)[0]
 
-    response = {'response': 'Your account was successfully created',
-                'data': {'id': user.id}}
+        response = {'response': 'Your account was successfully created',
+                    'data': {'id': user.id}}
     return json.dumps(response)
 
 
 @app.route('/login', methods=['POST'])
 def login():
+    """Create a new session if no session exists for the user with the given
+    username.
+    """
     request_data = json.loads(request.data)
     username = request_data['username']
     if session.get(username):
@@ -74,7 +83,7 @@ def create_dropbox_session():
 
     user = User.query.filter(User.username == session['username'])[0]
     user_access_token = user.dropbox_access_token
-    access_token = request_data['access_token']
+    access_token = request_data.get('access_token')
 
     if user_access_token != access_token:
         user.dropbox_access_token = access_token
@@ -87,7 +96,7 @@ def get_dropbox_session(access_token=None):
     """Try to connect to Dropbox. If the token is valid then return the client.
     """
     if not access_token:
-        user = User.query.get(User.username == session['username'])
+        user = User.query.filter(User.username == session['username'])[0]
         access_token = user.dropbox_access_token
     try:
         dropbox = DropboxClient(access_token)
@@ -95,7 +104,7 @@ def get_dropbox_session(access_token=None):
         app.logger.warning("User wasn't able to authenticate to Dropbox!")
         return
 
-    return dropbox.client
+    return dropbox
 
 
 @app.route('/take_picture')
