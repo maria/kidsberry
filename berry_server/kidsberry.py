@@ -24,8 +24,10 @@ def sign_up():
     request_data = json.loads(request.data)
     new_user = create_new_user(request_data['username'],
                                request_data['email'])
+    user = User.query.filter(User.email == new_user.email)[0]
+
     response = {'response': 'Your account was successfully created',
-                'data': {'id': new_user.id}}
+                'data': {'id': user.id}}
     return json.dumps(response)
 
 
@@ -39,7 +41,7 @@ def login():
         if User.query.filter(User.username == username).count() > 0:
             user = User.query.get(User.username == username)
         else:
-            create_new_user(username)
+            create_new_user(username, request_data.get('email'))
 
     session['username'] = username
     response = {'response': 'Successfully logged in!',
@@ -48,10 +50,9 @@ def login():
     return json.dumps(response)
 
 
-def create_new_user(username, email=None, **kwargs):
+def create_new_user(username, email=None):
     new_user = User(username=username, email=email)
     db_session.add(new_user)
-    db_session.commit()
     return new_user
 
 
