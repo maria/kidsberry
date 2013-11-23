@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		FF7A825F18411370008B2387 /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF7A825E18411370008B2387 /* GoogleOpenSource.framework */; };
 		FF7A826118411381008B2387 /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF7A826018411381008B2387 /* GooglePlus.framework */; };
+		FF7A8265184117A3008B2387 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF7A8263184117A3008B2387 /* RootViewController.m */; };
+		FF7A8266184117A3008B2387 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF7A8264184117A3008B2387 /* RootViewController.xib */; };
 		FFA95F781840B70D00874CFB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA95F771840B70D00874CFB /* Foundation.framework */; };
 		FFA95F7A1840B70D00874CFB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA95F791840B70D00874CFB /* CoreGraphics.framework */; };
 		FFA95F7C1840B70D00874CFB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA95F7B1840B70D00874CFB /* UIKit.framework */; };
@@ -59,6 +61,9 @@
 /* Begin PBXFileReference section */
 		FF7A825E18411370008B2387 /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleOpenSource.framework; sourceTree = "<group>"; };
 		FF7A826018411381008B2387 /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GooglePlus.framework; sourceTree = "<group>"; };
+		FF7A8262184117A3008B2387 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		FF7A8263184117A3008B2387 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		FF7A8264184117A3008B2387 /* RootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
 		FFA95F741840B70D00874CFB /* KidsBerry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KidsBerry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFA95F771840B70D00874CFB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FFA95F791840B70D00874CFB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -149,9 +154,11 @@
 		FFA95F6B1840B70D00874CFB = {
 			isa = PBXGroup;
 			children = (
+				FFA95F761840B70D00874CFB /* Frameworks */,
+				FFDC33371840F91000CC926B /* Images */,
+				FFDC33361840F43200CC926B /* Json */,
 				FFA95F7D1840B70D00874CFB /* KidsBerry */,
 				FFA95F9C1840B70D00874CFB /* KidsBerryTests */,
-				FFA95F761840B70D00874CFB /* Frameworks */,
 				FFA95F751840B70D00874CFB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -188,18 +195,19 @@
 		FFA95F7D1840B70D00874CFB /* KidsBerry */ = {
 			isa = PBXGroup;
 			children = (
-				FFDC33371840F91000CC926B /* Images */,
-				FFDC33361840F43200CC926B /* Json */,
 				FFA95F861840B70D00874CFB /* AppDelegate.h */,
 				FFA95F871840B70D00874CFB /* AppDelegate.m */,
-				FFA95F891840B70D00874CFB /* Main.storyboard */,
-				FFA95F8C1840B70D00874CFB /* ViewController.h */,
-				FFA95F8D1840B70D00874CFB /* ViewController.m */,
-				FFA95F8F1840B70D00874CFB /* Images.xcassets */,
-				FFA95F7E1840B70D00874CFB /* Supporting Files */,
 				FFDC33121840D4A800CC926B /* HelloViewController.h */,
 				FFDC33131840D4A800CC926B /* HelloViewController.m */,
 				FFDC33141840D4A800CC926B /* HelloViewController.xib */,
+				FFA95F8F1840B70D00874CFB /* Images.xcassets */,
+				FFA95F891840B70D00874CFB /* Main.storyboard */,
+				FF7A8262184117A3008B2387 /* RootViewController.h */,
+				FF7A8263184117A3008B2387 /* RootViewController.m */,
+				FF7A8264184117A3008B2387 /* RootViewController.xib */,
+				FFA95F7E1840B70D00874CFB /* Supporting Files */,
+				FFA95F8C1840B70D00874CFB /* ViewController.h */,
+				FFA95F8D1840B70D00874CFB /* ViewController.m */,
 			);
 			path = KidsBerry;
 			sourceTree = "<group>";
@@ -259,6 +267,7 @@
 				FFDC332B1840F42500CC926B /* SBJsonWriter.m */,
 			);
 			name = Json;
+			path = KidsBerry;
 			sourceTree = "<group>";
 		};
 		FFDC33371840F91000CC926B /* Images */ = {
@@ -268,6 +277,7 @@
 				FFDC33381840F9BF00CC926B /* kidsberry.jpg */,
 			);
 			name = Images;
+			path = KidsBerry;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -350,6 +360,7 @@
 				FFDC33391840F9BF00CC926B /* kidsberry.jpg in Resources */,
 				FFA95F821840B70D00874CFB /* InfoPlist.strings in Resources */,
 				FFA95F8B1840B70D00874CFB /* Main.storyboard in Resources */,
+				FF7A8266184117A3008B2387 /* RootViewController.xib in Resources */,
 				FFDC333D184109A500CC926B /* dropbox_button.png in Resources */,
 				FFDC33161840D4A800CC926B /* HelloViewController.xib in Resources */,
 			);
@@ -384,6 +395,7 @@
 				FFDC33151840D4A800CC926B /* HelloViewController.m in Sources */,
 				FFDC33321840F42500CC926B /* SBJsonStreamWriter.m in Sources */,
 				FFDC332F1840F42500CC926B /* SBJsonStreamParserAdapter.m in Sources */,
+				FF7A8265184117A3008B2387 /* RootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
