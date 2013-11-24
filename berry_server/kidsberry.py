@@ -153,7 +153,9 @@ def live_preview():
     if request.method == 'GET':
         video = CameraVideo()
         setattr(g, 'video', video)
-        video.start_live_preview()
+        filename = video.start_live_preview()
+        #client = get_dropbox_session(session['username'])
+        #client.upload(filename)
     elif request.method == 'DELETE' and hasattr(g,'video'):
         video = g.video
         video.end_live_preview()

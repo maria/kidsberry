@@ -17,15 +17,16 @@ class CameraVideo(object):
             self.file_name = "/tmp/cameraOut" + self.timestamp + ".avi"
             self.live_preview = True
             #video_stream = VideoStream(self.file_name, fps=15)
-        framecount = 0
-        while self.live_preview is True or framecount <= 50:
+        timeout = 0
+        while timeout < 100:
             #image = my_camera.getImage()
             #image = image.edges()
             #video_stream.writeFrame(image)
             self.my_camera.getImage().save(self.my_display)
-            framecount += 1
+	    timeout += 2
             sleep(0.1)
-
+        
+	return self.file_name
 
     def stop_live_preview(self):
         self.live_preview = False
