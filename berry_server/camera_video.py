@@ -6,7 +6,8 @@ from time import sleep
 class CameraVideo(object):
 
     def __init__(self):
-        self.my_camera = Camera(prop_set={'width': 320, 'height': 240})
+        if hasattr(self, 'my_camera') is False:
+            self.my_camera = Camera(prop_set={'width': 320, 'height': 240})
         self.my_display = Display(resolution=(320, 240))
         self.live_preview = False
         self.timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
@@ -17,7 +18,7 @@ class CameraVideo(object):
             self.live_preview = True
             video_stream = VideoStream(self.file_name, fps=15)
         framecount = 0
-        while (not self.my_display.isDone()) and (self.live_preview is True):
+        while self.live_preview is True:
         #while self.live_preview is True:
             #image = my_camera.getImage()
             #image = image.edges()
@@ -28,7 +29,6 @@ class CameraVideo(object):
 
     def stop_live_preview(self):
         self.live_preview = False
-        self.my_display.close()
         # construct the encoding arguments
         # outname = self.file_name.replace('.avi', '.mp4')
         # params = " -i {0} {1}".format(self.file_name, outname)
