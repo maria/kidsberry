@@ -168,7 +168,7 @@ def play_sound():
     #filename = client.download('/tmp/song.wav')
     sound = PlaySounds()
     sound.play_sound()
-    reponse = json.dumps({'response': 'That was it'})
+    response = json.dumps({'response': 'That was it'})
     return response
 
 @app.route('/schedule_pictures', methods=['POST'])
