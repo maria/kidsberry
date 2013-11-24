@@ -144,7 +144,7 @@ def take_video():
     response = {'data': {'video_url': video_url}}
 
 
-@app.route('/live_preview', methods=['POST, DELETE'])
+@app.route('/live_preview', methods=['POST', 'DELETE'])
 def live_preview():
     """If the client makes a POST request start the live preview, and add the
     CameraVideo object to the session to be able to end the live preview once
