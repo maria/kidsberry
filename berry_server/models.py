@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Datetime
+from sqlalchemy import Column, Integer, String, DateTime
 
 from database import Base
 
@@ -9,8 +9,8 @@ class User(Base):
     username = Column(String(50), unique=True)
     email = Column(String(120), unique=True)
     dropbox_access_token = Column(String(120), unique=True)
-    scheduled_images_timedelta = Column(Datetime)
-    last_image_timeframe = Column(Datetime)
+    scheduled_images_timedelta = Column(DateTime)
+    last_image_timeframe = Column(DateTime)
 
     def __init__(self, username=None, email=None, dropbox_access_token=None,
                  scheduled_images_timedelta=1, last_image_timeframe=None):

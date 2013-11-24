@@ -7,7 +7,7 @@ from camera_picture import CameraPicture
 from camera_video import CameraVideo
 from database import db_session
 from dropbox_client import DropboxClient
-from models import User, ScheduledImages
+from models import User
 from settings_local import FLASK_SECRET_KEY
 
 DEFAULT_VIDEO_DURATION = 120
@@ -187,7 +187,9 @@ def should_take_pictures(user_id):
 
 
 def scheduled_pictures_task(user_id):
-    """Upload a picture to Dropbox and save the url in the database."""
+    """Upload a picture to Dropbox and save the timestamp in the database,
+    to check in the future if we should take a new scheduled picture.
+    """
     camera = CameraPicture()
     picture = camera.take_picture()
 
