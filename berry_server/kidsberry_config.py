@@ -6,3 +6,4 @@ class KidsberryConfig(object):
     TESTING = False
     DATABASE_URI = DATABASE_URI
     SECRET_KEY = FLASK_SECRET_KEY
+    CELERY_BROKER_URL = 'sqla+sqlite:////tmp/kidsberry.db'

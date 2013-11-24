@@ -5,6 +5,7 @@ from flask import Flask, request, session, redirect, url_for
 
 from camera_picture import CameraPicture
 from camera_video import CameraVideo
+from celery_tasks import make_celery
 from database import db_session
 from dropbox_client import DropboxClient
 from models import User
@@ -13,6 +14,8 @@ from settings_local import FLASK_SECRET_KEY
 DEFAULT_VIDEO_DURATION = 120
 
 app = Flask(__name__)
+app.config.from_object('kidsberry_config.KidsberryConfig')
+celery = make_celery(app)
 
 
 @app.route('/')
@@ -166,6 +169,7 @@ def schedule_pictures():
     db_session.add(user)
 
 
+@celery.task()
 def get_scheduling_pictures_task():
     """Get the list of users who have a scheduled timeframe for taking pictures,
     and for which we didn't took pictures in expected timeframe.
@@ -208,7 +212,6 @@ def shutdown_session(exception=None):
 
 
 if __name__ == '__main__':
-    app.config.from_object('kidsberry_config.KidsberryConfig')
     import logging
     file_handler = logging.FileHandler('/tmp/kidsberry.log')
     file_handler.setLevel(logging.INFO)
