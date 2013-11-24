@@ -14,7 +14,7 @@ from settings_local import FLASK_SECRET_KEY
 DEFAULT_VIDEO_DURATION = 120
 
 app = Flask(__name__)
-app.config.from_object('berry_server.kidsberry_config.KidsberryConfig')
+app.config.from_object('kidsberry_config.KidsberryConfig')
 celery = make_celery(app)
 
 
