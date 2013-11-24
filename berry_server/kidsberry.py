@@ -1,7 +1,7 @@
 import json
 import datetime
 
-from flask import Flask, request, session, redirect, url_for
+from flask import Flask, request, session, redirect, url_for, g
 
 from camera_picture import CameraPicture
 from camera_video import CameraVideo
@@ -144,19 +144,18 @@ def take_video():
     response = {'data': {'video_url': video_url}}
 
 
-@app.route('/live_preview', methods=['POST', 'DELETE'])
+@app.route('/live_preview', methods=['GET', 'DELETE'])
 def live_preview():
     """If the client makes a POST request start the live preview, and add the
     CameraVideo object to the session to be able to end the live preview once
     the client makes a DELETE request.
     """
-    if request.method == 'POST':
+    if request.method == 'GET':
         video = CameraVideo()
-        session['video'] = video
+        setattr(g, 'video', video)
         video.start_live_preview()
-
-    elif request.method == 'DELETE' and session.get('video'):
-        video = session['video']
+    elif request.method == 'DELETE' and hasattr(g,'video'):
+        video = g.video
         video.end_live_preview()
 
 
