@@ -1,6 +1,8 @@
-from SimpleCV import Camera
 from time import sleep
 from datetime import datetime
+
+from SimpleCV import Camera
+
 
 class CameraPicture(object):
 
@@ -13,4 +15,3 @@ class CameraPicture(object):
         file_name = "/tmp/cameraOut" + self.timestamp + ".jpg"
         frame.save(file_name)
         return file_name
-
