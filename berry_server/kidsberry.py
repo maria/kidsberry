@@ -9,6 +9,7 @@ from celery_tasks import make_celery
 from database import db_session
 from dropbox_client import DropboxClient
 from models import User
+from play_sound import PlaySounds
 from settings_local import FLASK_SECRET_KEY
 
 DEFAULT_VIDEO_DURATION = 120
@@ -159,6 +160,14 @@ def live_preview():
     elif request.method == 'DELETE' and hasattr(g,'video'):
         video = g.video
         video.end_live_preview()
+
+
+@app.route('/play_sound', methods=['GET'])
+def play_sound():
+    #client = get_dropbox_session(session['username'])
+    #filename = client.download('/tmp/song.wav')
+    sound = PlaySounds()
+    sound.play_sound()
 
 
 @app.route('/schedule_pictures', methods=['POST'])
