@@ -159,32 +159,35 @@ def live_preview():
 
 @app.route('/schedule_pictures', methods=['POST'])
 def schedule_pictures():
-    """
-    """
+    """Set a scheduling timeframe for a user, in order to take pictures """
     request_data = json.loads(request.data)
     user = User.query.filter(User.username == session['username'])
     user.scheduled_images_timedelta = request_data['timedelta']
-
     db_session.add(user)
 
 
 def get_scheduling_pictures_task():
+    """Get the list of users who have a scheduled timeframe for taking pictures,
+    and for which we didn't took pictures in expected timeframe.
+    For each user take a picture and save it in the database.
+    """
     users_ids = User.query.all()
     for user_id in users_ids:
         if should_take_pictures(user_id):
-            schedule_pictures_task(user_id)
+            scheduled_pictures_task(user_id)
 
 
 def should_take_pictures(user_id):
-    user_timedelta = User.query.filter(User.id == user_id).scheduled_images_timedelta
-    timedelta = datetime.datetime.now() - datetime.timedelta(hours=user_timedelta)
-    taken_pictures = ScheduledImages.query.filter(
-        ScheduledImages.user_id == user_id,
-        ScheduledImages.timestamp > timedelta)
-    return True if taken_pictures.count() == 0 else False
+    """Assert if we should take new pictures for the user. Hence the last picture
+    was taken outside the expected timeframe.
+    """
+    user = User.query.filter(User.id == user_id)
+    timedelta = datetime.datetime.now() - user.scheduled_images_timedelta
+    return True if user.last_image_timeframe < timedelta else False
 
 
-def schedule_pictures_task(user_id):
+def scheduled_pictures_task(user_id):
+    """Upload a picture to Dropbox and save the url in the database."""
     camera = CameraPicture()
     picture = camera.take_picture()
 
@@ -192,9 +195,9 @@ def schedule_pictures_task(user_id):
     image_url = client.upload(picture)
 
     timestamp = datetime.datetime.now()
-    image = ScheduledImages.new(image_url=image_url, timestamp=timestamp,
-                                user_id=user_id)
-    db_session.add(image)
+    user = User.query.filter(Username.id == user_id)
+    user.last_image_timeframe = timestamp
+    db_session.add(user)
 
 
 @app.teardown_appcontext

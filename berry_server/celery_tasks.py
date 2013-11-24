@@ -4,6 +4,9 @@ from celery import Celery
 
 
 class CeleryConfig(object):
+    """Update celery configuration params to the app specific params.
+    Use this settings to create a celery app which has to be run as a daemon.
+    """
     CELERYD_MAX_TASKS_PER_CHILD = 1
     BROKER_URL =  'sqla+sqlite:////tmp/kidsberry.db'
     CELERY_CACHE_BACKEND = "cache://memory"
