@@ -1,6 +1,5 @@
 import dropbox
 import json
-import requests
 
 from settings_local import DROPBOX_API_KEY, DROPBOX_API_SECRET
 
