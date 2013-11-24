@@ -3,7 +3,7 @@ kidsberry
 
 Be a RaspeberryPi away from your kid!
 
-Nowdays more than half of all mothers with infants work. And even more mothers with kids are working.
+Nowadays more than half of all mothers with infants work. And even more mothers with kids are working.
 So, is a hard choice for moms: Work or stay home?
 
 KidsBerry makes the transition less emotionally difficult.
