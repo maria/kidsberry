@@ -28,12 +28,12 @@ class CameraVideo(object):
 
     def stop_live_preview(self):
         self.live_preview = False
+        self.my_display.close()
         # construct the encoding arguments
-        #outname = self.file_name.replace('.avi', '.mp4')
-        #params = " -i {0} {1}".format(self.file_name, outname)
+        # outname = self.file_name.replace('.avi', '.mp4')
+        # params = " -i {0} {1}".format(self.file_name, outname)
         # run ffmpeg to compress your video.
-        #call('ffmpeg' + params, shell=True)
-        return outname
+        # call('ffmpeg' + params, shell=True
 
     def take_video(self, duration):
        pass
